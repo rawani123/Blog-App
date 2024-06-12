@@ -4,6 +4,7 @@ import connectDB from './confid/db.js';
 import cors from 'cors';
 import morgan from 'morgan';
 import userRoutes from './routes/user.route.js';
+import blogRoutes from './routes/blog.route.js';
 
 
 dotenv.config();
@@ -17,6 +18,7 @@ app.use(cors());
 app.use(morgan('dev'));
 
 app.use("/api/v1/user",userRoutes)
+app.use("/api/v1/blog",blogRoutes)
 
 
 app.listen(process.env.PORT, () => {
