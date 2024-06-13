@@ -13,4 +13,6 @@ router.put('/update-blog/:id',updateBlogController)
 
 router.delete('/delete-blog/:id',deleteBlogController)
 
+router.get("/user-blg/:id",userBlogController)
+
 export default router;

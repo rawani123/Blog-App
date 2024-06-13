@@ -66,11 +66,26 @@ const updateBlogController=async(req,res)=>{
 const deleteBlogController=async(req,res)=>{
     try{
         const {id}= req.params;
-        await Blog.findByIdAndDelete(id);
+        const blog = await Blog.findByIdAndDelete(id).populate("user");
+        await blog.user.blogs.pull(blog);
+        await blog.user.save();
         return res.status(200).send({success: true, message: "Blog deleted successfully"})
     }catch(error){
         return res.status(500).send({success: false, message: "Internal server error",error: error.message})
     }
 }
 
-export {getAllBlogsController,getBlogByIdController,createBlogController,updateBlogController,deleteBlogController}
+const userBlogController=async(req,res)=>{
+    try {
+        const userBlog = await User.findById(req.params.id).populate("blogs");
+        if(!userBlog){
+            return res.status(404).send({success: false, message: "User not found"})
+        }
+        return res.status(200).send({success: true, message: "User blogs fetched successfully",userBlog})
+    } catch (error) {
+        return res.status(500).send({success: false, message: "Internal server error",error: error.message})
+    }
+}
+
+
+export {getAllBlogsController,getBlogByIdController,createBlogController,updateBlogController,deleteBlogController,userBlogController}
