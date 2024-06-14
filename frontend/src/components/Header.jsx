@@ -9,11 +9,17 @@ import {
   Tab,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { authActions } from "../store/store";
 
 const Header = () => {
   const isLogin = useSelector((state) => state.isLogin);
   const [value, setValue] = useState();
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    localStorage.removeItem("userId");
+    dispatch(authActions.logout());
+  }
   return (
     <>
       <AppBar position="sticky">
@@ -51,7 +57,14 @@ const Header = () => {
                 </Button>
               </>
             )}
-            <Button sx={{ margin: 1, color: "white" }}>Logout</Button>
+            {isLogin && (
+              <Button
+                sx={{ margin: 1, color: "white" }}
+                onClick={handleLogout}
+              >
+                Logout
+              </Button>
+            )}
           </Box>
         </Toolbar>
       </AppBar>
