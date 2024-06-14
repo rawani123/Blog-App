@@ -17,7 +17,12 @@ const loginController = async (req, res) => {
         if(!isMatch){
             return res.status(400).send({success: false, message: "Invalid credentials"})
         }
-        return res.status(200).send({success: true, message: "User logged in successfully"})
+        return res.status(200).send({success: true, message: "User logged in successfully",user:{
+            _id: user._id,
+            name: user.name,
+            email: user.email
+        
+        }})
     } catch (error) {
         console.log("Error in loginController: ", error.message);
         return res.status(500).send({success: false, message: "Internal server error",error: error.message})
@@ -27,6 +32,7 @@ const loginController = async (req, res) => {
 const registerController = async (req, res) => {
     try {
         const { name, email, password } = req.body;
+        
         if(!name || !email || !password){
             return res.status(400).send({success: false, message: "Please provide all required fields"})
         }

@@ -8,5 +8,5 @@ router.route('/login').post(loginController);
 router.route('/all-user').get(getAllUsersController)
 
 router.route('/register').post(registerController);
-
+    
 export default router;
