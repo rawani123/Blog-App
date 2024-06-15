@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get('/all-blogs',getAllBlogsController)
 
-router.get('/blog/:id',getBlogByIdController)
+router.get('/get-blog/:id',getBlogByIdController)
 
 router.post('/create-blog',createBlogController)
 

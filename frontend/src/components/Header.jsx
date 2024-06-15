@@ -22,7 +22,9 @@ const Header = () => {
   const handleLogout = () => {
     localStorage.removeItem("userId");
     dispatch(authActions.logout());
+
     navigate("/");
+    localStorage.clear();
   }
   return (
     <>
