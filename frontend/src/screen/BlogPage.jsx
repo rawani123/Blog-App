@@ -7,7 +7,7 @@ const Blogs = () => {
   const getAllBlogs = async () => {
     try {
       const { data } = await axios.get("http://localhost:3000/api/v1/blog/all-blogs");
-      console.log(data)
+      // console.log(data)
       if (data?.success) {
         setBlogs(data?.blogs);
       }

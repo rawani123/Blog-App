@@ -3,15 +3,17 @@ import axios from "axios";
 import BlogCard from "../components/BlogCard";
 const UserBlog = () => {
   const [blogs, setBlogs] = useState([]);
+  const [user, setUser] = useState({});
 
   //get user blogs
   const getUserBlogs = async () => {
     try {
       const id = localStorage.getItem("userId");
       const { data } = await axios.get(`http://localhost:3000/api/v1/blog/user-blg/${id}`);
-      console.log(data)
+      console.log("me :",data)
       if (data?.success) {
         setBlogs(data?.userBlog?.blogs);
+        setUser(data?.userBlog);
       }
     } catch (error) {
       console.log(error);
@@ -32,7 +34,7 @@ const UserBlog = () => {
             title={blog.title}
             description={blog.description}
             image={blog.image}
-            username={blog.user.username}
+            username={user?.name}
             time={blog.createdAt}
           />
         ))
