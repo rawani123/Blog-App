@@ -4,7 +4,7 @@ import User from "../models/user.model.js"
 
 const getAllBlogsController=async(req,res)=>{
     try {
-        const blogs = await Blog.find({})
+        const blogs = await Blog.find({}).populate("user");
         if(!blogs){
             return res.status(200).send({success: false, message: "No blogs found",blogCount:0, blogs:[]})
         }

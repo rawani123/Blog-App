@@ -11,14 +11,18 @@ import {
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../store/store";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+
+  const navigate = useNavigate();
   const isLogin = useSelector((state) => state.isLogin);
   const [value, setValue] = useState();
   const dispatch = useDispatch();
   const handleLogout = () => {
     localStorage.removeItem("userId");
     dispatch(authActions.logout());
+    navigate("/");
   }
   return (
     <>
